@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 
 import android.view.Menu;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 
-	String ipAddress = "http://10.0.0.41:5000";
+	String ipAddress = "http://192.168.1.31:5000";
 	TextView addressinfo;
 
 	@Override
@@ -28,14 +29,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		addressinfo = (TextView) findViewById(R.id.textViewAddress);
 		
-		
-
-		// hides keyboard until edittext is active
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		//disables word-prediction
-		
-
 		
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
@@ -94,7 +87,7 @@ public class MainActivity extends Activity {
 		}
 
 		try {
-			new HttpRequest().execute(ipAddress + channel, request);
+			new HttpRequest(getApplicationContext()).execute(ipAddress + channel, request);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -119,5 +112,4 @@ public class MainActivity extends Activity {
 		
 		
 	}
-
 }
